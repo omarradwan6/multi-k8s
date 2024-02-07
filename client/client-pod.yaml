@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+  labels:
+    component: web
+spec:
+  containers:
+    - name: client-pod
+      image: omarradwan6/multi-worker:latest
+      ports:
+        - containerPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-pod-srv
+spec:
+  type: NodePort
+  selector:
+    component: web
+  ports:
+    - port: 3050
+      targetPort: 3000
+      nodePort: 31515
